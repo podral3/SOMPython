@@ -1,6 +1,8 @@
 import csv
 import random
-
+import numpy as np
+import matplotlib.pyplot as plt     
+from math import sin, pi
 def generate_and_save_rgb_data(filename, n):
 
     with open(filename, 'w', newline='') as csvfile:
@@ -26,4 +28,20 @@ def generate_and_save_rgb_data(filename, n):
                 color = "blue"
             writer.writerow([r, g, b, color])
 
-generate_and_save_rgb_data('SomDataGrouping.csv', 1500)  # Generate 150 rows
+def generate_adn_save_xyz_data(filename, x_range, y_range, angle_step):
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['x','y','z'])
+
+        angle = 0
+        for x in range(0,x_range):
+            for y in range(0,y_range,):
+                z = sin(angle)
+                writer.writerow([x,y,z])
+                angle += angle_step
+            angle = 0        
+            
+            
+
+generate_adn_save_xyz_data('SomXYZ.csv', 100, 100, 5 * pi / 180)
+#generate_and_save_rgb_data('SomDataGrouping.csv', 1500)  # Generate 150 rows
