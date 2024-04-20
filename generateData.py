@@ -43,5 +43,5 @@ def generate_adn_save_xyz_data(filename, x_range, y_range, angle_step):
             
             
 
-generate_adn_save_xyz_data('SomXYZ.csv', 100, 100, 5 * pi / 180)
-#generate_and_save_rgb_data('SomDataGrouping.csv', 1500)  # Generate 150 rows
+generate_adn_save_xyz_data('/SOM_XYZ/SomXYZ.csv', 100, 100, 5 * pi / 180)
+#generate_and_save_rgb_data('/SOM_RGB/SomDataGrouping.csv', 1500)  # Generate 150 rows
