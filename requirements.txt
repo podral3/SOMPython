@@ -1,0 +1,6 @@
+jupyterlab
+matplotlib
+MiniSom
+pandas
+numpy
+ipympl

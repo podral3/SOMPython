@@ -1,6 +1,7 @@
 SOMXYZ.csv
 SomDataGrouping.csv
-
+numbers.csv
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+.vscode
