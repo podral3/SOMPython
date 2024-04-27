@@ -16,7 +16,7 @@ min_y = min(y_values)
 max_x = max(x_values)
 max_y = max(y_values)
 
-def group_array(data, x_jump, y_jump): #przenieść do pliku ale nie klasy square?
+def group_array(data, x_jump, y_jump): 
     x_segments_count = int((max(x_values) - min(x_values)) / x_jump)
     y_segments_count = int((max(y_values) - min(y_values)) / y_jump)
     segmented_points = []
@@ -43,28 +43,34 @@ def group_array(data, x_jump, y_jump): #przenieść do pliku ale nie klasy squar
 squares = group_array(data,10,10)
 
 #zrobić to bardziej ustandaryzowanie
-squares[0].randomize_points(10) 
+squares[0].randomize_points(10)
+for square in squares:
+    square.svd_method()
 bad_square = squares[0]
 
-som_3dim = squares[0].points_to_train.shape[0] #ilość wag w neuronie
-points_to_train = np.array([x.points_to_train for x in squares]) #tworzenie listy składającej się z wektorów gotowych do treningu
-som_x, som_y = 2,2
-som = MiniSom(som_x, som_y, som_3dim, random_seed=42)
-som.train(points_to_train, 100000) 
+som_3dim = len(bad_square.normal_vector) #ilość wag w neuronie
+som_grid_size = 4
+
+normal_vectors_to_train = np.array([x.normal_vector for x in squares]) #tworzenie listy składającej się z wektorów gotowych do treningu
+labels = np.array([int(x.bad_square) for x in squares])
+label_names = {0: 'Dobre', 1: 'Złe'}
+
+som = MiniSom(som_grid_size, som_grid_size, som_3dim, random_seed=42)
+som.train(normal_vectors_to_train, 100000) 
 
 #tworzenie mapy kolorów 
 #mądrze umieścić gdzieś w funkcji
-som_colors = np.empty((som_x, som_y), dtype='object')
+som_colors = np.empty((som_grid_size, som_grid_size), dtype='object')
 color_idx = 0
-for i in range(som_x):
-    for j in range (som_y):
+for i in range(som_grid_size):
+    for j in range (som_grid_size):
         som_colors[i,j] = colors[color_idx]
         color_idx+= 1
 
 #kolorowanie punktów sinusoidy
 #mądrze umieścić w funkcji
 for square in squares:
-    winner_pos = som.winner(bad_square.points_to_train)
+    winner_pos = som.winner(bad_square.normal_vector)
     col = som_colors[winner_pos[0], winner_pos[1]]
     square.color_my_points(col)
 
