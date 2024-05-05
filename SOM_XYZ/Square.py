@@ -53,7 +53,8 @@ class Square:
     centroid = np.mean(self.points, axis=0)
     centered_points = self.points - centroid
     U, S, Vh = np.linalg.svd(centered_points)
-    normal_vector = Vh[:, -1] #do sprawdzenia
+    normal_vector = np.transpose(Vh)[:, 2]
+    normal_vector = normal_vector / np.linalg.norm(normal_vector)
     self.normal_vector = normal_vector
     return normal_vector
   
