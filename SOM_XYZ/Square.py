@@ -43,7 +43,7 @@ class Square:
   def least_suqares_method(self):
     A = np.c_[self.points]
     B = np.ones(self.points.shape[0])
-    normal, _, _, _ = np.linalg.lstsq(A, B)
+    normal, _, _, _ = np.linalg.lstsq(A, B, rcond=None)
     self.normal_vector = normal / np.linalg.norm(normal)
     return normal
   
