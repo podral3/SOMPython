@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from Square import Square, colors
 
-data = pd.read_csv('/home/repos/SOMPython/SOM_XYZ/SomXYZ.csv')
+data = pd.read_csv('./SOM_XYZ/SomXYZ.csv')
 data = data.values
 #moim zdaniem chyba nie potrzeba tutaj normalizować danych,
 #ewentualnie po zmianach wartości x oraz y z jest zawsze -1 do 1
@@ -42,11 +42,15 @@ def group_array(data, x_jump, y_jump):
     
 squares = group_array(data,10,10)
 
-#zrobić to bardziej ustandaryzowanie
+squares[0].randomize_points(50)
+squares[0].export_points_csv("points_to_analize.csv")
+
 squares[0].randomize_points(10)
 for square in squares:
     square.svd_method()
 bad_square = squares[0]
+#wybrać square
+
 
 som_3dim = len(bad_square.normal_vector) #ilość wag w neuronie
 som_grid_size = 4

@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import csv
 class Square:
 
   def __init__(self, points, x_position, y_position, bad_square = False):
@@ -35,40 +36,36 @@ class Square:
     for i in range(self.points.shape[0]):
       self.colored_points.append(np.concatenate((self.points[i], rgb)))
     return self.colored_points
+  
+  def export_points_csv(self, filename):
+    with open(filename, 'w', newline='') as csvfile:
+      writer = csv.writer(csvfile)
+      writer.writerow(['x', 'y', 'z'])
+
+      for point in self.points:
+        writer.writerow([point[0], point[1], point[2]])  
 
   def hex_to_rgb(self, hex_code):
     hex_code = hex_code.lstrip('#')  # Remove leading '#' if present
     return np.array(tuple(int(hex_code[i:i+2], 16) for i in (0, 2, 4)))
   
+  def least_suqares_method(self):
+    A = np.c_[self.points]
+    B = np.ones(self.points.shape[0])
+    normal, _, _, _ = np.linalg.lstsq(A, B)
+    self.normal_vector = normal
+    return normal
+  
   def svd_method(self):
     centroid = np.mean(self.points, axis=0)
     centered_points = self.points - centroid
     U, S, Vh = np.linalg.svd(centered_points)
-    normal_vector = Vh[:, -1] #do sprawdzenia
+    normal_vector = np.transpose(Vh)[:, 2]
+    normal_vector = normal_vector / np.linalg.norm(normal_vector)
     self.normal_vector = normal_vector
     return normal_vector
   
-def moments_method(self): #nie działa
-  centroid = np.mean(self.points, axis=0)
-  centered_points = self.points - centroid
-  Mx = np.mean(self.points[:,0])
-  My = np.mean(self.points[:,1])
-  Mz = np.mean(self.points[:,2])
-
-  Mxx = np.mean((self.points[:,0] - Mx) ** 2)
-  Myy = np.mean((self.points[:,1] - My) ** 2)
-  Mzz = np.mean((self.points[:,2] - Mz) ** 2)
-  Mxy = np.mean((self.points[:,0] - Mx)  * (self.points[:,1] - My))
-  Mxz = np.mean((self.points[:,0] - Mx)  * (self.points[:,2] - Mz))
-  Myz = np.mean((self.points[:,1] - My)  * (self.points[:,2] - Mz))
-
-  a = Mxx / (Mxx + Myy + Mzz)
-  b = Myy / (Mxx + Myy + Mzz)
-  c = Mzz / (Mxx + Myy + Mzz)
-  d = - (a*Mx + b*My + c*Mz)
-
-  self.normal_vector = np.array([a,b,c])
-  return np.array([a,b,c])
+  
 
 colors = ["#000000", "#FFFF00", "#1CE6FF", "#FF34FF", "#FF4A46", "#008941", "#006FA6", "#A30059",
         "#FFDBE5", "#7A4900", "#0000A6", "#63FFAC", "#B79762", "#004D43", "#8FB0FF", "#997D87",
