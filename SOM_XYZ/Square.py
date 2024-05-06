@@ -22,15 +22,6 @@ class Square:
         self.points[index][2] += random.uniform(-1,1) #zmienia Z
     self.points_to_train = np.concatenate(self.points)
 
-  def create_plane(self):
-    centroid = np.mean(self.points, axis=0)
-    centered_points = self.points - centroid
-    #convariance_matrix = len(1/self.points) * np.transpose(centered_points) * centered_points
-    convariance_matrix = np.cov(centered_points)
-    U, S, Vh = np.linalg.svd(convariance_matrix)
-    normal_vector = Vh[0,:]
-    return normal_vector
-
   def color_my_points(self, color):
     rgb = self.hex_to_rgb(color)
     for i in range(self.points.shape[0]):
@@ -53,7 +44,7 @@ class Square:
     A = np.c_[self.points]
     B = np.ones(self.points.shape[0])
     normal, _, _, _ = np.linalg.lstsq(A, B)
-    self.normal_vector = normal
+    self.normal_vector = normal / np.linalg.norm(normal)
     return normal
   
   def svd_method(self):

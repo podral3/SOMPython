@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from Square import Square, colors
 
-data = pd.read_csv('./SOM_XYZ/SomXYZ.csv')
+data = pd.read_csv('/home/SOMPython/SOM_XYZ/SomXYZ.csv')
 data = data.values
 #moim zdaniem chyba nie potrzeba tutaj normalizować danych,
 #ewentualnie po zmianach wartości x oraz y z jest zawsze -1 do 1
@@ -42,8 +42,8 @@ def group_array(data, x_jump, y_jump):
     
 squares = group_array(data,10,10)
 
-squares[0].randomize_points(50)
-squares[0].export_points_csv("points_to_analize.csv")
+#squares[0].randomize_points(50)
+squares[32].export_points_csv("points_to_analize.csv")
 
 squares[0].randomize_points(10)
 for square in squares:
