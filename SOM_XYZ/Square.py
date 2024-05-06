@@ -50,7 +50,7 @@ class Square:
     return np.array(tuple(int(hex_code[i:i+2], 16) for i in (0, 2, 4)))
   
   def least_suqares_method(self):
-    A = np.c_[self.points[['x', 'y', 'z']]]
+    A = np.c_[self.points]
     B = np.ones(self.points.shape[0])
     normal, _, _, _ = np.linalg.lstsq(A, B)
     self.normal_vector = normal
