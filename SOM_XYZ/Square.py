@@ -40,6 +40,13 @@ class Square:
     hex_code = hex_code.lstrip('#')  # Remove leading '#' if present
     return np.array(tuple(int(hex_code[i:i+2], 16) for i in (0, 2, 4)))
   
+  def calculate_normal(self, method):
+    if (method == 'svd'):
+      self.svd_method()
+    elif (method == "squares"):
+      self.least_suqares_method()
+    self.normal_method = method
+  
   def least_suqares_method(self):
     A = np.c_[self.points]
     B = np.ones(self.points.shape[0])
