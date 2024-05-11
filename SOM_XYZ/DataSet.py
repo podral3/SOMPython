@@ -1,8 +1,8 @@
-import Square
+from Square import *
 import numpy as np
 class DataSet:
     """Class that represents a DataSet that will be trained on SOM, allows grouping operations on points"""
-    def __init__(self,data):
+    def __init__(self, data):
         self.points = data
 
         self.x_values = data[:,0]
@@ -14,7 +14,7 @@ class DataSet:
         self.max_y = max(self.y_values)
     """Groups points into smaller squares"""
     def group_points_into_squares(self, x_jump, y_jump):
-        x_segments_count = int(self.max_x - self.min_x / x_jump)
+        x_segments_count = int((self.max_x - self.min_x) / x_jump)
         y_segments_count = int((self.max_y - self.min_y) / y_jump)
         segmented_points = np.zeros((x_segments_count+1, y_segments_count+1), dtype=object)
 
@@ -24,26 +24,26 @@ class DataSet:
         x_iterator = x_segments_count
         while(x_iterator >= 0):
             y_iterator = y_segments_count
-        while(y_iterator >= 0):
-            points = [point for point in self.points if point[0] >= x and point[0] < x + x_jump and point[1] >= y and point[1] < y+y_jump]
-            x_pos = x_segments_count - x_iterator
-            y_pos = y_segments_count - y_iterator
-            sq = Square(np.array(points), x_pos, y_pos)
-            sq.calculate_normal('svd')
-            segmented_points[x_pos,y_pos] = sq
+            while(y_iterator >= 0):
+                points = [point for point in self.points if point[0] >= x and point[0] < x + x_jump and point[1] >= y and point[1] < y+y_jump]
+                x_pos = x_segments_count - x_iterator
+                y_pos = y_segments_count - y_iterator
+                sq = Square(np.array(points), x_pos, y_pos)
+                sq.calculate_normal('svd')
+                segmented_points[x_pos,y_pos] = sq
 
-            y += y_jump
-            y_iterator = y_iterator -1
-        x += x_jump
-        y = self.min_y
-        x_iterator = x_iterator - 1
+                y += y_jump
+                y_iterator = y_iterator -1
+            x += x_jump
+            y = self.min_y
+            x_iterator = x_iterator - 1
 
         self.squares2d = segmented_points
     
-    def group_normal_vectors(self, squares2d, n):
+    def group_normal_vectors(self, n):
         normal_vectors_list = []
-        x_len = squares2d.shape[0]
-        y_len = squares2d.shape[1]
+        x_len = self.squares2d.shape[0]
+        y_len = self.squares2d.shape[1]
         for x in range(0, x_len-n):
             for y in range(0, y_len-n):
                 normal_vectors_list.append(self.get_normals(x,y,n))

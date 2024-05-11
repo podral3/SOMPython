@@ -5,7 +5,6 @@ class Square:
 
   def __init__(self, points, x_position, y_position, bad_square = False):
     self.points = points
-    self.points_to_train = np.concatenate(self.points) # nie potrzebne na razie
     self.x_position = x_position
     self.y_position = y_position
     self.bad_square = bad_square
