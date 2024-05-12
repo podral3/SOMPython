@@ -13,7 +13,7 @@ class DataSet:
         self.max_x = max(self.x_values)
         self.max_y = max(self.y_values)
     """Groups points into smaller squares"""
-    def group_points_into_squares(self, x_jump, y_jump):
+    def group_points_into_squares(self, x_jump, y_jump, normal_method):
         x_segments_count = int((self.max_x - self.min_x) / x_jump)
         y_segments_count = int((self.max_y - self.min_y) / y_jump)
         segmented_points = np.zeros((x_segments_count+1, y_segments_count+1), dtype=object)
@@ -29,7 +29,7 @@ class DataSet:
                 x_pos = x_segments_count - x_iterator
                 y_pos = y_segments_count - y_iterator
                 sq = Square(np.array(points), x_pos, y_pos)
-                sq.calculate_normal('svd')
+                sq.calculate_normal(normal_method)
                 segmented_points[x_pos,y_pos] = sq
 
                 y += y_jump
