@@ -42,22 +42,31 @@ class DataSet:
     
     def group_normal_vectors(self, n):
         normal_vectors_list = []
+        labels = []
         x_len = self.squares2d.shape[0]
         y_len = self.squares2d.shape[1]
         for x in range(0, x_len-n):
             for y in range(0, y_len-n):
-                normal_vectors_list.append(self.get_normals(x,y,n))
+                normals, label = self.get_normals(x,y,n)
+                normal_vectors_list.append(normals)
+                labels.append(label)
         self.normals_to_train = normal_vectors_list
+        self.labels = labels
     
     def get_normals(self, x,y,n):
         """Get normal vectors from search windows at position x and y"""
         normal_vectors = []
+        bad_square = 0
         for i in range(x, x+n):
             for j in range(y, y+n):
-                #print(squares2d[i,j].normal_vector)
+                if (self.squares2d[i,j].bad_square):
+                    bad_square = 1
                 normal_vectors.append(self.squares2d[i,j].normal_vector)
-        return np.concatenate(normal_vectors).flatten()
+        return np.concatenate(normal_vectors).flatten(), bad_square
+    
     def randomize(self, percent, indexes = [[0,0]]):
+        self.bad_squares = []
         for i in indexes:
             self.squares2d[i[0],i[1]].randomize_points(percent)
+            self.bad_squares.append(self.squares2d[i[0],i[1]])
 
