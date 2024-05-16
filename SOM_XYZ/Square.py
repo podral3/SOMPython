@@ -5,7 +5,6 @@ class Square:
 
   def __init__(self, points, x_position, y_position, bad_square = False):
     self.points = points
-    self.points_to_train = np.concatenate(self.points) # nie potrzebne na razie
     self.x_position = x_position
     self.y_position = y_position
     self.bad_square = bad_square
@@ -21,15 +20,6 @@ class Square:
     for index in random_indices:
         self.points[index][2] += random.uniform(-1,1) #zmienia Z
     self.points_to_train = np.concatenate(self.points)
-
-  def create_plane(self):
-    centroid = np.mean(self.points, axis=0)
-    centered_points = self.points - centroid
-    #convariance_matrix = len(1/self.points) * np.transpose(centered_points) * centered_points
-    convariance_matrix = np.cov(centered_points)
-    U, S, Vh = np.linalg.svd(convariance_matrix)
-    normal_vector = Vh[0,:]
-    return normal_vector
 
   def color_my_points(self, color):
     rgb = self.hex_to_rgb(color)
@@ -49,11 +39,18 @@ class Square:
     hex_code = hex_code.lstrip('#')  # Remove leading '#' if present
     return np.array(tuple(int(hex_code[i:i+2], 16) for i in (0, 2, 4)))
   
+  def calculate_normal(self, method):
+    if (method == 'svd'):
+      self.svd_method()
+    elif (method == "squares"):
+      self.least_suqares_method()
+    self.normal_method = method
+  
   def least_suqares_method(self):
     A = np.c_[self.points]
     B = np.ones(self.points.shape[0])
-    normal, _, _, _ = np.linalg.lstsq(A, B)
-    self.normal_vector = normal
+    normal, _, _, _ = np.linalg.lstsq(A, B, rcond=None)
+    self.normal_vector = normal / np.linalg.norm(normal)
     return normal
   
   def svd_method(self):

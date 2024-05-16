@@ -2,8 +2,12 @@ from minisom import MiniSom
 import numpy as np
 import pandas as pd
 from Square import Square, colors
+import os
 
-data = pd.read_csv('./SOM_XYZ/SomXYZ.csv')
+current_dir = os.getcwd()
+repo_dir = os.path.dirname(current_dir)
+
+data = pd.read_csv(f'{repo_dir}/Sample Data/SOM_XYZ/SomXYZ.csv')
 data = data.values
 #moim zdaniem chyba nie potrzeba tutaj normalizować danych,
 #ewentualnie po zmianach wartości x oraz y z jest zawsze -1 do 1
@@ -42,8 +46,8 @@ def group_array(data, x_jump, y_jump):
     
 squares = group_array(data,10,10)
 
-squares[0].randomize_points(50)
-squares[0].export_points_csv("points_to_analize.csv")
+#squares[0].randomize_points(50)
+squares[32].export_points_csv("points_to_analize.csv")
 
 squares[0].randomize_points(10)
 for square in squares:
