@@ -3,9 +3,11 @@ import numpy as np
 import pandas as pd
 from Square import Square, colors
 import os
-current_dir = os.getcwd()
 
-data = pd.read_csv(f'{current_dir}/SOM_XYZ/SomXYZ.csv')
+current_dir = os.getcwd()
+repo_dir = os.path.dirname(current_dir)
+
+data = pd.read_csv(f'{repo_dir}/Sample Data/SOM_XYZ/SomXYZ.csv')
 data = data.values
 #moim zdaniem chyba nie potrzeba tutaj normalizować danych,
 #ewentualnie po zmianach wartości x oraz y z jest zawsze -1 do 1
