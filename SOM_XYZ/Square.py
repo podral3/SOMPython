@@ -18,7 +18,7 @@ class Square:
     points_to_randomize = int((points_count * randomization_percent) / 100)
     random_indices = np.random.choice(range(points_count), points_to_randomize)
     for index in random_indices:
-        self.points[index][2] += random.uniform(-1,1) #zmienia Z
+        self.points[index][2] += random.uniform(1,2) #zmienia Z
     self.points_to_train = np.concatenate(self.points)
 
   def color_my_points(self, color):
