@@ -1,8 +1,7 @@
 from minisom import MiniSom
 import numpy as np
 import pandas as pd
-from DataSet import DataSet
-from Square import *
+from Data_Structures import DataSet, Square
 import os
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation

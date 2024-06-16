@@ -1,9 +1,6 @@
 import csv
 import random
-import numpy as np
-from pandas import read_csv   
 from math import sin, pi
-from .SOM_XYZ.Square import Square
 def generate_and_save_rgb_data(filename, n):
 
     with open(filename, 'w', newline='') as csvfile:
