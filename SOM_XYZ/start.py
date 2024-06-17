@@ -1,7 +1,6 @@
-from minisom import MiniSom
 import numpy as np
 import pandas as pd
-from Data_Structures import DataSet, Square
+from Our_MiniSom import *
 import os
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -39,7 +38,7 @@ def naszaFunkcja(obiekt, data):
 
 current_dir = os.getcwd()
 repo_dir = os.path.dirname(current_dir)
-data = pd.read_csv(f'/Users/arturjanowski/Projekty/SOMAGAIN/2/Sample/SomXYZ2.csv')
+data = pd.read_csv(f'{current_dir}/Sample Data/SomXYZ.csv')
 data = data.values
 #moim zdaniem chyba nie potrzeba tutaj normalizować danych, ewentualnie po zmianach wartości x oraz y z jest zawsze -1 do 1
 

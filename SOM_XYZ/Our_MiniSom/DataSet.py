@@ -1,4 +1,4 @@
-from Square import *
+from .Square import Square
 import numpy as np
 class DataSet:
     """Class that represents a DataSet that will be trained on SOM, allows grouping operations on points"""
