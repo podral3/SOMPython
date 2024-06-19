@@ -176,7 +176,7 @@ class MiniSom(object):
         self._weights = self._random_generator.rand(x, y, input_len)*2-1
         self._weights /= linalg.norm(self._weights, axis=-1, keepdims=True)
 
-        self.old_weights=self._weights;
+        self.old_weights=self._weights
 
             
         self._activation_map = zeros((x, y))
@@ -451,7 +451,7 @@ class MiniSom(object):
             print('\n quantization error:', self.quantization_error(data))
 
     def nasza(self, data):
-        gradient=(self.old_weights-self._weights).flatten();
+        gradient=(self.old_weights-self._weights).flatten()
         gradient=gradient*gradient
         gradient=sum(gradient)
         print("gradient: ",sqrt(gradient),'self.quantization_error(data): ',self.quantization_error(data))
