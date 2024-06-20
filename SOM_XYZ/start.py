@@ -55,8 +55,8 @@ label_names={0: 'Dobre', 1: 'Złe'}
 # print("labels", labels[:2])
 
 
-som = MiniSom(som_grid_size, som_grid_size, som_3dim, sigma=0.9, learning_rate=0.3,random_seed=42)
+som = MiniSom(som_grid_size, som_grid_size, som_3dim, sigma=0.4, learning_rate=0.1,random_seed=42, neighborhood_function= "mexican_hat")
 
 funkcja_z_parametrami= partial(naszaFunkcja, som, normal_vectors_to_train)
-som.train(normal_vectors_to_train, 10000, verbose=False,nasza_funkcja=funkcja_z_parametrami, co_ile_iteracji_nasza= 10)
+som.train(normal_vectors_to_train, 5000, verbose=False,nasza_funkcja=funkcja_z_parametrami, co_ile_iteracji_nasza= 10)
 print("koniec")
