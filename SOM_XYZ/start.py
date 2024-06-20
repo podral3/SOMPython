@@ -33,27 +33,18 @@ def naszaFunkcja(obiekt, data):
     error = obiekt.quantization_error(data)
     errors.append(error)
     update_plot()
-    
-#WASZE
 
+#Wczytanie danych    
 current_dir = os.getcwd()
 repo_dir = os.path.dirname(current_dir)
 data = pd.read_csv(f'{current_dir}/Sample Data/SomXYZ.csv')
 data = data.values
-#moim zdaniem chyba nie potrzeba tutaj normalizować danych, ewentualnie po zmianach wartości x oraz y z jest zawsze -1 do 1
 
-dataSet = DataSet(data)
-dataSet.group_points_into_squares(5,5, "squares")
-dataSet.randomize(90,[[4,5]])
-dataSet.group_normal_vectors(7)
-bad_square = dataSet.bad_squares[0]  #0 wskazuje na piereszy element badsquare, mamy teraz tylko jeden
-som_3dim = len(dataSet.normals_to_train[0]) #ilość wag w neuronie
-som_grid_size = 4
-
-normal_vectors_to_train = dataSet.normals_to_train #tworzenie listy składającej się z wektorów gotowych do treningu 
-labels = dataSet.labels
-
-
+#Przygotowanie danych do treningu
+dataSet, normal_vectors_to_train, labels, som_3dim = DataSet.prepare_data(data)
+bad_square = dataSet.bad_squares[0]
+som_grid_size = 3
+label_names = {0: 'Dobre', 1: 'Złe'}
 
 print(len(normal_vectors_to_train))  #9 squerowe wycinki ze wszystkich squerow
 label_names={0: 'Dobre', 1: 'Złe'}
