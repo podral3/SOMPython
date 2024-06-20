@@ -399,7 +399,7 @@ class MiniSom(object):
                                       c2*pc[pc_order[1]]
 
     def train(self, data, num_iteration,
-              random_order=False, verbose=False, use_epochs=False,funkcja_po_kazdej_iteracji=None, p=None):
+              random_order=False, verbose=False, use_epochs=False,nasza_funkcja=None, co_ile_iteracji_nasza=100):
         """Trains the SOM.
 
         Parameters
@@ -444,18 +444,20 @@ class MiniSom(object):
             decay_rate = get_decay_rate(t, len(data))
             self.update(data[iteration], self.winner(data[iteration]),
                         decay_rate, num_iteration)
-            if (funkcja_po_kazdej_iteracji!= None):
-                funkcja_po_kazdej_iteracji()
+            if (nasza_funkcja!= None):
+                if(t % co_ile_iteracji_nasza == 0):
+                    print(t)
+                    nasza_funkcja(t, co_ile_iteracji_nasza)
 
         if verbose:
             print('\n quantization error:', self.quantization_error(data))
 
-    def nasza(self, data):
-        gradient=(self.old_weights-self._weights).flatten()
-        gradient=gradient*gradient
-        gradient=sum(gradient)
-        print("gradient: ",sqrt(gradient),'self.quantization_error(data): ',self.quantization_error(data))
-        self.old_weights=self._weights
+    # def nasza(self, data):
+    #     gradient=(self.old_weights-self._weights).flatten()
+    #     gradient=gradient*gradient
+    #     gradient=sum(gradient)
+    #     print("gradient: ",sqrt(gradient),'self.quantization_error(data): ',self.quantization_error(data))
+    #     self.old_weights=self._weights
 
 
     def train_random(self, data, num_iteration, verbose=True):
