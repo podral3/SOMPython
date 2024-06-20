@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 from Our_MiniSom import *
 import os
@@ -7,7 +6,6 @@ from matplotlib.animation import FuncAnimation
 import matplotlib
 matplotlib.use('TkAgg')
 from functools import partial
-import time
 
 
 # Inicjalizacja listy do przechowywania wyników
@@ -57,7 +55,7 @@ label_names={0: 'Dobre', 1: 'Złe'}
 # print("labels", labels[:2])
 
 
-som = MiniSom(som_grid_size, som_grid_size, som_3dim, sigma=0.3, learning_rate=0.3,random_seed=42)
+som = MiniSom(som_grid_size, som_grid_size, som_3dim, sigma=0.9, learning_rate=0.3,random_seed=42)
 
 funkcja_z_parametrami= partial(naszaFunkcja, som, normal_vectors_to_train)
 som.train(normal_vectors_to_train, 10000, verbose=False,nasza_funkcja=funkcja_z_parametrami, co_ile_iteracji_nasza= 10)
