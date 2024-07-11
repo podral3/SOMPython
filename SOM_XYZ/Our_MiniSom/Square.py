@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import csv
+import math
 class Square:
 
   def __init__(self, points, x_position, y_position, bad_square = False):
@@ -45,6 +46,7 @@ class Square:
     elif (method == "squares"):
       self.least_suqares_method()
     self.normal_method = method
+    self.RMSE()
   
   def least_suqares_method(self):
     A = np.c_[self.points]
@@ -62,6 +64,28 @@ class Square:
     self.normal_vector = normal_vector
     return normal_vector
   
+  def RMSE(self):
+    if self.normal_vector is not None:
+      sum = 0
+      for point in self.points:
+          centroid = self.points.mean(axis=0)
+          A = self.normal_vector[0]
+          B = self.normal_vector[1]
+          C = self.normal_vector[2]
+          D = A * centroid[0] + B * centroid[1] + C * centroid[2]
+
+          x = point[0]
+          y = point[1]
+          z = point[2]
+
+          plane_equation = A*x +B*y + C*z + D
+          mianownik = math.sqrt(A*A+ B*B+ C*C)
+
+          distance_to_plane = abs(plane_equation) / mianownik
+          sum+= (distance_to_plane * distance_to_plane)
+
+      self.rmse = math.sqrt(sum / len(self.points))
+        
   
 
 colors = ["#000000", "#FFFF00", "#1CE6FF", "#FF34FF", "#FF4A46", "#008941", "#006FA6", "#A30059",

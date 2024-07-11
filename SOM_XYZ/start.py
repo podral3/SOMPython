@@ -42,7 +42,7 @@ data = pd.read_csv(f'{current_dir}/Sample Data/SomXYZ.csv')
 data = data.values
 
 #Przygotowanie danych do treningu
-dataSet, normal_vectors_to_train, labels, som_3dim = DataSet.prepare_data(data)
+dataSet, normal_vectors_to_train, labels, som_3dim = DataSet.prepare_data(data, plane_method="squares")
 bad_square = dataSet.bad_squares[0]
 som_grid_size = 3
 label_names = {0: 'Dobre', 1: 'Złe'}

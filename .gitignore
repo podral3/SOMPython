@@ -3,3 +3,4 @@ __pycache__/
 SomVenv/
 *.py[cod]
 .vscode
+rmse.csv
