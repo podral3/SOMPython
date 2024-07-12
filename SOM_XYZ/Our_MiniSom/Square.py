@@ -67,23 +67,30 @@ class Square:
   def RMSE(self):
     if self.normal_vector is not None:
       sum = 0
-      for point in self.points:
-          centroid = self.points.mean(axis=0)
-          A = self.normal_vector[0]
-          B = self.normal_vector[1]
-          C = self.normal_vector[2]
-          D = A * centroid[0] + B * centroid[1] + C * centroid[2]
 
+      #points normalization
+      min_vals = np.min(self.points, axis=0)
+      max_vals = np.max(self.points, axis=0)
+      normalized_points = (self.points - min_vals) / (max_vals - min_vals)
+
+      centroid = normalized_points.mean(axis=0)
+      A = self.normal_vector[0]
+      B = self.normal_vector[1]
+      C = self.normal_vector[2]
+      D = A * centroid[0] + B * centroid[1] + C * centroid[2]
+
+      for point in normalized_points:
           x = point[0]
           y = point[1]
           z = point[2]
 
           plane_equation = A*x +B*y + C*z + D
-          mianownik = math.sqrt(A*A+ B*B+ C*C)
+          temp = A*A+ B*B+ C*C
+          mianownik = math.sqrt(temp)
 
           distance_to_plane = abs(plane_equation) / mianownik
           sum+= (distance_to_plane * distance_to_plane)
-
+      sum = sum
       self.rmse = math.sqrt(sum / len(self.points))
         
   
