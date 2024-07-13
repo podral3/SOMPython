@@ -77,7 +77,7 @@ class Square:
       A = self.normal_vector[0]
       B = self.normal_vector[1]
       C = self.normal_vector[2]
-      D = A * centroid[0] + B * centroid[1] + C * centroid[2]
+      D = (A * centroid[0] + B * centroid[1] + C * centroid[2]) * -1
 
       for point in normalized_points:
           x = point[0]
