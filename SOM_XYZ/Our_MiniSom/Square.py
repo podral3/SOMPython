@@ -71,13 +71,16 @@ class Square:
       #points normalization
       min_vals = np.min(self.points, axis=0)
       max_vals = np.max(self.points, axis=0)
-      normalized_points = (self.points - min_vals) / (max_vals - min_vals)
+      normalized_points = (self.points - min_vals) / (max_vals- min_vals)
+      normalized_points[:, 2] = self.points[:, 2]
+      if (self.x_position == 5):
+        x =2
 
       centroid = normalized_points.mean(axis=0)
       A = self.normal_vector[0]
       B = self.normal_vector[1]
       C = self.normal_vector[2]
-      D = (A * centroid[0] + B * centroid[1] + C * centroid[2]) * -1
+      D = (A * centroid[0] + B * centroid[1] + C * centroid[2]) 
 
       for point in normalized_points:
           x = point[0]
@@ -91,7 +94,7 @@ class Square:
           distance_to_plane = abs(plane_equation) / mianownik
           sum+= (distance_to_plane * distance_to_plane)
       sum = sum
-      self.rmse = math.sqrt(sum / len(self.points))
+      self.rmse = math.sqrt(sum / len(self.points)) * 10
         
   
 
