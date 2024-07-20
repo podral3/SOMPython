@@ -42,4 +42,4 @@ def generate_and_save_xyz_data(filename, x_range, y_range, angle_step):
 
 
 current_dir = os.getcwd()          
-generate_and_save_xyz_data(f'{current_dir}/Sample Data/SomXYZ.csv', 10, 100, 5 * pi / 180)
+generate_and_save_xyz_data(f'{current_dir}/Sample Data/SomXYZ_1_40_20.csv', 10, 40, 20 * pi / 180)
