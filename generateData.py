@@ -1,5 +1,6 @@
 import csv
 import random
+import os
 from math import sin, pi
 def generate_and_save_rgb_data(filename, n):
 
@@ -39,4 +40,6 @@ def generate_and_save_xyz_data(filename, x_range, y_range, angle_step):
                 angle += angle_step
             angle = 0        
 
-generate_and_save_xyz_data('/Sample Data/SomXYZ.csv', 100, 100, 5 * pi / 180)
+
+current_dir = os.getcwd()          
+generate_and_save_xyz_data(f'{current_dir}/Sample Data/SomXYZ.csv', 10, 100, 5 * pi / 180)
