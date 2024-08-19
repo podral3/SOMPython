@@ -4,3 +4,4 @@ SomVenv/
 *.py[cod]
 .vscode
 rmse.csv
+Output/

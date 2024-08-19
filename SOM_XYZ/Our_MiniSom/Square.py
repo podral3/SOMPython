@@ -47,6 +47,7 @@ class Square:
       self.least_suqares_method()
     self.normal_method = method
     self.RMSE()
+    self.create_training_data() #dodaje to wektora danych trenujących wyraz wolny plaszczyzny (póki co)
   
   def least_suqares_method(self):
     A = np.c_[self.points]
@@ -81,6 +82,7 @@ class Square:
       B = self.normal_vector[1]
       C = self.normal_vector[2]
       D = (A * centroid[0] + B * centroid[1] + C * centroid[2]) 
+      self.wyraz_wolny = D
 
       for point in normalized_points:
           x = point[0]
@@ -94,8 +96,12 @@ class Square:
           distance_to_plane = abs(plane_equation) / mianownik
           sum+= (distance_to_plane * distance_to_plane)
       sum = sum
-      self.rmse = math.sqrt(sum / len(self.points)) * 10
-        
+      self.rmse = math.sqrt(sum / len(self.points)) 
+
+  def create_training_data(self):
+    nv = np.array([self.normal_vector[0], self.normal_vector[1], self.normal_vector[2], self.wyraz_wolny, self.RMSE]) #można jeszcze dodać RMSE
+    self.training_data = nv
+      
   
 
 colors = ["#000000", "#FFFF00", "#1CE6FF", "#FF34FF", "#FF4A46", "#008941", "#006FA6", "#A30059",

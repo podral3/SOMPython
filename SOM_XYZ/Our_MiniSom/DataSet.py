@@ -53,6 +53,7 @@ class DataSet:
         self.normals_to_train = normal_vectors_list
         self.labels = labels
     
+    #tutaj najlepiej dodawać infomracje o każdym kwadracie
     def get_normals(self, x,y,n):
         """Get normal vectors from search windows at position x and y"""
         normal_vectors = []
@@ -61,7 +62,7 @@ class DataSet:
             for j in range(y, y+n):
                 if (self.squares2d[i,j].bad_square):
                     bad_square = 1
-                normal_vectors.append(self.squares2d[i,j].normal_vector)
+                normal_vectors.append(self.squares2d[i,j].normal_vector) 
         return np.concatenate(normal_vectors).flatten(), bad_square
     
     def randomize(self, percent, indexes = [[0,0]]):
@@ -71,7 +72,7 @@ class DataSet:
             self.bad_squares.append(self.squares2d[i[0],i[1]])
             
     @staticmethod
-    def prepare_data(data, x_div_range = 10, y_div_range = 10, plane_method = "svd",
+    def prepare_data(data, x_div_range = 10, y_div_range = 10, plane_method = "squares",
                  search_window_size = 3, randomize_percent = 50,
                  squares_to_randomize = [[4,5]]):
         """
