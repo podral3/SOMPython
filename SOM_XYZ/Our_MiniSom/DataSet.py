@@ -45,8 +45,8 @@ class DataSet:
         labels = []
         x_len = self.squares2d.shape[0]
         y_len = self.squares2d.shape[1]
-        for x in range(0, x_len-n):
-            for y in range(0, y_len-n):
+        for x in range(0, x_len-n+1):
+            for y in range(0, y_len-n+1):
                 normals, label = self.get_normals(x,y,n)
                 normal_vectors_list.append(normals)
                 labels.append(label)
